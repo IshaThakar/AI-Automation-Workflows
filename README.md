@@ -106,7 +106,7 @@ Integrates Google Docs, Google Sheets, Google Drive, and Gmail into intelligent 
 
 ---
 
-# 🎯 Key Features
+# Key Features
 
 - Modular workflow design
 - AI-assisted decision making
