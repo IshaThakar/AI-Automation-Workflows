@@ -1,6 +1,6 @@
 # AI-Automation-Workflows
 AI-powered workflow automation projects using n8n, Google Workspace, REST APIs, and Large Language Models.
-# 🤖 AI Automation Workflows
+# AI Automation Workflows
 
 A collection of AI-powered workflow automation projects built using **n8n**, **Generative AI**, **Google Workspace**, and **REST APIs** to automate real-world business and productivity tasks.
 
@@ -8,7 +8,7 @@ This repository showcases practical automation solutions designed to reduce manu
 
 ---
 
-## 🚀 Overview
+## Overview
 
 The workflows in this repository automate repetitive tasks such as:
 
@@ -25,7 +25,7 @@ Each workflow is built using **n8n** and integrates various cloud services and A
 
 ---
 
-# 📂 Repository Structure
+# Repository Structure
 
 ```
 AI-Automation-Workflows/
@@ -53,7 +53,7 @@ AI-Automation-Workflows/
 
 ---
 
-# 🛠 Technologies Used
+# Technologies Used
 
 - n8n
 - Generative AI
@@ -73,7 +73,7 @@ AI-Automation-Workflows/
 
 # 📌 Featured Workflows
 
-## 📄 AI Meeting Assistant
+## AI Meeting Assistant
 
 Automates the complete post-meeting workflow by:
 
@@ -85,7 +85,7 @@ Automates the complete post-meeting workflow by:
 
 ---
 
-## 💼 AI LinkedIn Content Automation
+## AI LinkedIn Content Automation
 
 Automates professional LinkedIn post creation by:
 
@@ -96,13 +96,13 @@ Automates professional LinkedIn post creation by:
 
 ---
 
-## 📧 Email Automation
+## Email Automation
 
 Automates communication workflows using Gmail and AI-generated content.
 
 ---
 
-## 📊 Google Workspace Automation
+## Google Workspace Automation
 
 Integrates Google Docs, Google Sheets, Google Drive, and Gmail into intelligent automation pipelines.
 
@@ -121,7 +121,7 @@ Integrates Google Docs, Google Sheets, Google Drive, and Gmail into intelligent 
 
 ---
 
-# 🎓 Purpose
+# Purpose
 
 This repository is part of my learning journey in **AI Automation**, **Workflow Engineering**, and **Software Development**.
 
@@ -129,7 +129,7 @@ The goal is to build practical automation systems that solve real-world problems
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
 - AI Agents
 - RAG-based workflows
@@ -143,7 +143,7 @@ The goal is to build practical automation systems that solve real-world problems
 
 ---
 
-# 👩‍💻 About Me
+# About Me
 
 **Isha Pravin Thakar**
 
