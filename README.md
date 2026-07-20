@@ -1,5 +1,3 @@
-# AI-Automation-Workflows
-AI-powered workflow automation projects using n8n, Google Workspace, REST APIs, and Large Language Models.
 # AI Automation Workflows
 
 A collection of AI-powered workflow automation projects built using **n8n**, **Generative AI**, **Google Workspace**, and **REST APIs** to automate real-world business and productivity tasks.
