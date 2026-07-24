@@ -24,11 +24,11 @@ Each workflow is built using **n8n** and integrates various cloud services and A
 ---
 
 # Repository Structure
-
+(example)
 ```
 AI-Automation-Workflows/
 │
-├── Meeting-Assistant/
+├── Lead-Generation/
 │   ├── workflow.json
 │   ├── screenshots/
 │   └── README.md
@@ -38,11 +38,11 @@ AI-Automation-Workflows/
 │   ├── screenshots/
 │   └── README.md
 │
-├── Google-Workspace/
+├── Meeting-Assistant/
 │
 ├── Email-Automation/
 │
-├── Lead-Generation/
+├── Google-Workspace/
 │
 ├── Telegram-Bot/
 │
