@@ -1,0 +1,175 @@
+{
+  "name": "AI Lead Management System",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1lrzGNtznL9GG9NewUDP8h0CUa__JteALwHKGpuLphzM",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 280988048,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lrzGNtznL9GG9NewUDP8h0CUa__JteALwHKGpuLphzM/edit#gid=280988048"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ef991061-a36c-47d6-a207-6a3df2a10bb6",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "dffrUZYZ2Gf6oTby",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Google Sheets Trigger').item.json['Email Address'] }}",
+        "subject": "We've Received Your Inquiry | POV Designs",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "7c073b8c-4492-4736-8414-3fd4c98d571d",
+      "name": "Send a message",
+      "webhookId": "dd5a1d17-f580-4f97-abfe-b0aa1e93f400",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hF1Zh7iJ9Ht9hAHY",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-1004232219072",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        0
+      ],
+      "id": "5268681d-a8b4-41aa-85bb-9f3894174510",
+      "name": "Send a text message",
+      "webhookId": "25e18f78-74ea-4a8e-80e7-397e193e4b9f",
+      "credentials": {
+        "telegramApi": {
+          "id": "Ka1LQAIETxT3rgNH",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3-flash-preview"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a Client Success Executive at POV Designs.\n\nWrite ONLY the email body.\n\nRequirements:\n- Begin with \"Hi {{ $json['Full Name'] }} ,\"\n- Thank the client for contacting POV Designs.\n- Mention the requested service naturally.\n- Acknowledge the client's requirements.\n- Tell them our team will review everything carefully.\n- Inform them that someone will contact them within 24–48 business hours.\n- Be warm, modern and professional.\n- Keep it between 100 and 150 words.\n- Do NOT include a subject.\n- Do NOT use \"Dear\".\n- End exactly with:\n\nBest regards,\nthen leave one line and then \nTeam POV Designs\n\nFor formatting it properly use appropriate html tags only",
+              "role": "model"
+            },
+            {
+              "content": "=Client Name: {{ $json['Full Name'] }}\n\nRequested Service: {{ $json['Service Interested In'] }}\n\nProject Details:{{ $json['Tell us about your project'] }}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "233c6e6f-d295-4bb2-99fb-3fb5211e353a",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uw2k63O1keC1UfvV",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "61568dac-5c5c-4b88-aee2-05bea7d71c3b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9ba502a1a1a3295610f1cf404954a1180492ca2fe0e76890aea518a88559f918"
+  },
+  "nodeGroups": [],
+  "id": "MsswPpwdE74cm37l",
+  "tags": []
+}
