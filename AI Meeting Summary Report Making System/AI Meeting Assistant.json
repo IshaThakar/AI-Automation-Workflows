@@ -1,0 +1,243 @@
+{
+  "name": "AI Meeting Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze the following meeting transcript and generate professional meeting report.\n\nMeeting Transcript:\n\n{{ $json.text }}",
+        "options": {
+          "systemMessage": "You are an expert executive meeting assistant.\n\nYour task is to analyze meeting transcripts and produce a clean, professional meeting report that is optimized for plain text documents such as Google Docs.\n\nIMPORTANT RULES:\n\n- DO NOT use Markdown.\n- DO NOT use #, ##, ###, **, *, -, >, or code blocks.\n- Use only plain text.\n- Use CAPITAL LETTERS for section headings.\n- Leave one blank line between sections.\n- Indent bullet points using \"•\".\n- Keep the report concise but comprehensive.\n- Use professional business language.\n- Remove filler words and unnecessary conversation.\n- Merge duplicate ideas.\n- Preserve important decisions and commitments.\n- Clearly identify owners of action items whenever possible.\n\nUse the following format exactly:\n\n══════════════════════════════════════\nMEETING SUMMARY\n══════════════════════════════════════\n\nMeeting Date:\nParticipants:\nMeeting Purpose:\n\n══════════════════════════════════════\nEXECUTIVE OVERVIEW\n══════════════════════════════════════\n\nWrite a concise executive summary in 3–5 sentences.\n\n══════════════════════════════════════\nKEY DISCUSSION POINTS\n══════════════════════════════════════\n\n1. Topic Name\n   • Point\n   • Point\n\n2. Topic Name\n   • Point\n   • Point\n\n══════════════════════════════════════\nDECISIONS MADE\n══════════════════════════════════════\n\n✓ Decision\n\n✓ Decision\n\n══════════════════════════════════════\nACTION ITEMS\n══════════════════════════════════════\n\nPerson/Team:\n• Task\n• Task\n\nPerson/Team:\n• Task\n\n══════════════════════════════════════\nNEXT STEPS\n══════════════════════════════════════\n\n• Next step\n\n• Next step\n\n══════════════════════════════════════\nRISKS / BLOCKERS\n══════════════════════════════════════\n\n• Risk\n\n• Dependency\n\n══════════════════════════════════════\nEND OF REPORT\n══════════════════════════════════════"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        0
+      ],
+      "id": "5d8fa175-e2c7-4db2-9b41-dd14996dc8bf",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json['Enter Your G-mail'] }}",
+        "subject": "={{ $('On form submission').item.json['Attach Your Meeting Transcript (.txt format only)'][0].filename }} Meeting Summary Report\n",
+        "message": "=Hi,\n<br>\nYour meeting summary report has been generated successfully.<br>\n📄 View the report: <br>\n\nhttps://docs.google.com/document/d/{{ $('Create a document').item.json.id }}/edit \n<br>\nRegards,<br> \nAI Meeting Assistant",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1264,
+        192
+      ],
+      "id": "2826ae43-dea1-40ee-9ac0-de13e10818ca",
+      "name": "Send a message",
+      "webhookId": "d1eec397-120f-4699-afe5-83a4b0061e2d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "hF1Zh7iJ9Ht9hAHY",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "Attach_Your_Meeting_Transcript___txt_format_only_",
+        "destinationKey": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "85eb7ad2-4b27-4a1e-8943-8c1abda5a061",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        704,
+        208
+      ],
+      "id": "3cb713fa-0916-46d6-94ff-556c8d004da8",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "ZMKmSgCf2x3r5nxa",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Meeting Summary Report Generator",
+        "formDescription": "Transform lengthy meeting transcripts into concise summaries, decisions, and action items in seconds",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Enter Your G-mail",
+              "fieldType": "email",
+              "placeholder": "eg.abs1@gmail.com"
+            },
+            {
+              "fieldLabel": "Attach Your Meeting Transcript (.txt format only)",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        208,
+        0
+      ],
+      "id": "75e7fba1-ee32-42ca-bbd5-d1592423fdc7",
+      "name": "On form submission",
+      "webhookId": "043db5ef-74fd-4dd8-83e3-2622e66582c0"
+    },
+    {
+      "parameters": {
+        "folderId": "1y_rHOPYhmDc6Oysv5dTYmd8gymosQ8Fe",
+        "title": "={{ $('On form submission').item.json['Attach Your Meeting Transcript (.txt format only)'][0].filename }} - Summary Report"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        0
+      ],
+      "id": "e7729b22-d3bb-44e7-a1d5-7e4ed52bd769",
+      "name": "Create a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "svsxmhhZ0gi6GHQ6",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('AI Agent').item.json.output }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        0
+      ],
+      "id": "9709c9da-a8bd-4de9-ae26-d054c01d6b3d",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "svsxmhhZ0gi6GHQ6",
+          "name": "Google Docs account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "536d092c-47a7-49c0-bb86-86e6ec521410",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9ba502a1a1a3295610f1cf404954a1180492ca2fe0e76890aea518a88559f918"
+  },
+  "nodeGroups": [],
+  "id": "JADLp9yANIzdQzXz",
+  "tags": []
+}
